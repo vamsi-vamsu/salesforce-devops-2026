@@ -1,0 +1,21 @@
+name: "Salesforce test pipeline"
+run-name: Salesforce test
+
+on:
+  push:
+
+jobs:
+    build-deploy:
+      name: "build"
+      runs-on: ubuntu-latest
+
+      steps:
+        - name: "checkout"
+          uses: actions/checkout@v6.0.2
+
+        - name: test
+          run : echo "hello"
+
+
+
+

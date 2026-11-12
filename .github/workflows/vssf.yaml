@@ -3,6 +3,9 @@ run-name: "Salesforce Pipeline run"
 
 on:
   push:
+env:
+ DEV_ORG: Dev
+ NODE_VERSION: ">=20.9.0"
 
 jobs:
   Setup-salesforce:
@@ -11,17 +14,21 @@ jobs:
 
     steps:
       - name: "checkout"
+        run: |
+          echo Nodeversion: $NODE_VERSION
+          echo Org_name: $DEV_ORG
+
+      - name: "checkout"
         uses: actions/checkout@v6.0.2
         with:
           fetch-depth: 0
-      - name: "context variables"
-        run: echo ${{toJSON(github)}}
+      
 
         # PREREQUISITES - Only needed if the runner doesn't already satisfy these requirements.
       - name: Ensure node v20.9.0 or greater
         uses: actions/setup-node@v5
         with:
-          node-version: '>=20.9.0'
+          node-version: $NODE_VERSION
       - name: Ensure java v11 or greater
         uses: actions/setup-java@v5
         with:
@@ -47,12 +54,12 @@ jobs:
           github-token: ${{ github.token }}
 
       - name: "authenticate with salesforce"
-        run: sf org login sfdx-url --sfdx-url-file tmp/authfile.txt --set-default --alias Dev
+        run: sf org login sfdx-url --sfdx-url-file tmp/authfile.txt --set-default --alias $DEV_ORG
 
       - name: "deploy to  Dev"
-        run: sf project deploy start --source-dir force-app/main/default -o Dev --wait 45
+        run: sf project deploy start --source-dir force-app/main/default -o $DEV_ORG --wait 45
 
       - name: "Assign ps"
-        run: sf org assign permset --name Onboarding_Manager --on-behalf-of Dev -o Dev --wait 5
+        run: sf org assign permset --name Onboarding_Manager --on-behalf-of $DEV_ORG -o $DEV_ORG --wait 5
 
 

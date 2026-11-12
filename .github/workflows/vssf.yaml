@@ -54,7 +54,10 @@ jobs:
           github-token: ${{ github.token }}
 
       - name: "authenticate with salesforce"
-        run: sf org login sfdx-url --sfdx-url-file tmp/authfile.txt --set-default --alias $DEV_ORG
+        run: |
+          echo ${{secrets.DEV_AUTH_URL}} > auth.txt
+          sf org login sfdx-url --sfdx-url-file auth.txt --set-default --alias $DEV_ORG
+          rm auth.txt
 
       - name: "deploy to  Dev"
         run: sf project deploy start --source-dir force-app/main/default -o $DEV_ORG --wait 45

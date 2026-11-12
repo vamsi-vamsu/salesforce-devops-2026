@@ -27,4 +27,10 @@ jobs:
       - name: "authenticate with salesforce"
         run: sf org login sfdx-url --sfdx-url-file tmp/authfile.txt --set-default --alias Dev
 
+      - name: "deploy to  Dev"
+        run: sf project deploy start --source-dir force-app/main/default -o Dev --wait 45
+
+      - name: "Assign ps"
+        run: sf org assign permset --name Onboarding_Manager --on-behalf-of Dev -o Dev --wait 5
+
 

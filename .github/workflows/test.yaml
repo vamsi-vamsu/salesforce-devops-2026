@@ -3,6 +3,7 @@ run-name: Salesforce test
 
 on:
   push:
+    branches: [main]
 
 jobs:
     build-deploy:

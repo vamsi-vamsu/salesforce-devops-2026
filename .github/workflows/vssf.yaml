@@ -17,9 +17,9 @@ jobs:
         run: sf --version
 
       - name: "install salesforce code analyser"
-        run: sf plugins install code-analyser
+        run: sf plugins install @salesforce/plugin-code-analyzer
 
       - name: "authenticate with salesforce"
         run: sf org login sfdx-url --sfdx-url-file tmp/authfile.txt --set-default --alias Dev
-        
+
 

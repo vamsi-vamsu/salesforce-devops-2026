@@ -15,14 +15,34 @@ jobs:
         with:
           fetch-depth: 0
 
+        # PREREQUISITES - Only needed if the runner doesn't already satisfy these requirements.
+      - name: Ensure node v20.9.0 or greater
+        uses: actions/setup-node@v5
+        with:
+          node-version: '>=20.9.0'
+      - name: Ensure java v11 or greater
+        uses: actions/setup-java@v5
+        with:
+          java-version: '>=11'
+          distribution: 'zulu'
+      - name: Ensure python v3.10 or greater
+        uses: actions/setup-python@v6
+        with:
+          python-version: '>=3.10'
+
       - name: "Setup Salesforce Cli"
         run: npm install --global @salesforce/cli@latest
 
       - name: "Check sf cli version"
         run: sf --version
 
-      - name: "install salesforce code analyser"
-        run: sf plugins install @salesforce/plugin-code-analyzer
+      - name: Run Salesforce Code Analyzer
+        id: run-code-analyzer
+        uses: forcedotcom/run-code-analyzer@v2
+        with:
+          run-arguments: --workspace . --view detail --output-file sfca_results.html --output-file sfca_results.json
+          results-artifact-name: salesforce-code-analyzer-results
+          github-token: ${{ github.token }}
 
       - name: "authenticate with salesforce"
         run: sf org login sfdx-url --sfdx-url-file tmp/authfile.txt --set-default --alias Dev

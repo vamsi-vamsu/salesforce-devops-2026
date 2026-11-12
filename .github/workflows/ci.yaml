@@ -13,6 +13,6 @@ jobs:
         run: echo "This is my first pipeline"
       - name: Info
         run: |
-          - echo ""this is my first line"
-          - echo ""this is my 2nd line"
-          - echo ""this is my 3rd line"
+          - echo "this is my first line"
+          - echo "this is my 2nd line"
+          - echo "this is my 3rd line"

@@ -1,4 +1,2 @@
 work flow
    event-->job-->step-->Action
-───────────────┼───────────────────────────────────────────────────────┤
- force://PlatformCLI::5Aep861..zRMyCurAWecOPsExqUd38VU21VrW9CYzYMf0oiGJrT1eSY.VnVeWu7JswY2AX76.sPk4hMs1Wo3fE7@vamsidomandula-dev-ed.my.salesforce.com 

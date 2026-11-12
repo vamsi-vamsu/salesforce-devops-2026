@@ -15,8 +15,4 @@ jobs:
         run: |
            echo "this is my first line"
            echo "this is my 2nd line"
-<<<<<<< HEAD
            echo "this is my 3rd line"
-=======
-           echo "this is my 3rd line"
->>>>>>> 4eb5938ed0c8404869006e06995a8bec65a2d303
